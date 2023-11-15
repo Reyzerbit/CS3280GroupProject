@@ -8,5 +8,10 @@ namespace GroupPrject.Items
 {
     internal class ItemsLogic
     {
+        //GetAllItems returns List<clsItems>
+        //AddItem(clsItem)
+        //EditItem(clsItem OldItem, clsItem NewItem)
+        //DeleteItem(clsItem ItemToDelete)
+        //IsItemOnInvoice(clsItem)
     }
 }

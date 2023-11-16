@@ -19,9 +19,11 @@ namespace GroupPrject.Items
     /// </summary>
     public partial class ItemsWindow : Window
     {
+        ItemsLogic ItemsLogic = new ItemsLogic();
         public ItemsWindow(MainWindow home)
         {
             InitializeComponent();
+            dgItems.ItemsSource = ItemsLogic.GetAllItems();
         }
 
         //bool bHasItemsBeenChanged;    //Set to true when an item has been added/edited/deleted.   Used by main window to know if needs to refresh items list

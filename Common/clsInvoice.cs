@@ -24,7 +24,7 @@ namespace GroupPrject.Common
         private int InvCharge;
 
 
-        public clsInvoice( int Id, DateTime date, int charges)
+        public clsInvoice( int Id, string date, int charges)
         {
             // set class variables 
             SetInvNum(Id);
@@ -58,9 +58,9 @@ namespace GroupPrject.Common
         /// Sets the class variable for the Invoice Date as a string with the format "dd, mm, yyyy"
         /// </summary>
         /// <param name="date">DateTime parameter to set class variable</param>
-        private void SetInvDate(DateTime date)
+        private void SetInvDate(string date)
         {
-            InvDate = date.ToString("dd, mm, yyyy");
+            InvDate = date;
         }
 
         /// <summary>

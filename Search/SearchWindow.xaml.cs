@@ -47,6 +47,9 @@ namespace GroupPrject.Search
             //gets the selected invoice. creates an object of type clsInvoice and passes it to the main ]
             //Window using ReturnFromSearchWindow() in the MainLogic
 
+            // when a item is selected from the datagrid, the lblSelectStatus will change and appear to 
+            // display the selected item to the user before they click the select button.
+
             //for the prototype select button will just close the window
             this.Close();
         }

@@ -16,6 +16,7 @@
         <Label x:Name="lblInvNum" Content="Invoice Number:" HorizontalAlignment="Left" Margin="55,49,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblInvDate" Content="Invoice Date:" HorizontalAlignment="Left" Margin="327,49,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblTotalCharge" Content="Total Charges:" HorizontalAlignment="Left" Margin="567,49,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblSelectStatus" Content="" HorizontalAlignment="Left" Margin="47,376,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

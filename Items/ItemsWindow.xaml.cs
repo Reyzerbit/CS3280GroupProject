@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,15 +20,36 @@ namespace GroupPrject.Items
     /// </summary>
     public partial class ItemsWindow : Window
     {
-        ItemsLogic ItemsLogic = new ItemsLogic();
+        private MainWindow home;
+        ItemsLogic itemsLogic = new ItemsLogic();
         public ItemsWindow(MainWindow home)
         {
-            InitializeComponent();
-            dgItems.ItemsSource = ItemsLogic.GetAllItems();
+            try
+            {
+                InitializeComponent();
+
+                this.home = home;
+                dgItems.ItemsSource = itemsLogic.GetAllItems();
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        //bool bHasItemsBeenChanged;    //Set to true when an item has been added/edited/deleted.   Used by main window to know if needs to refresh items list
-        //bool HasItemsBeenChanged;     //Property
+        /// <summary>
+        /// Called when the save button is pressed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveItem(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                /*
+                 * Do all save stuff
+                 */
 
+                home.NotifyOfItemsWindowChange();
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
     }
 }

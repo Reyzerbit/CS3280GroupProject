@@ -1,80 +1,126 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation;
 
 namespace GroupPrject.Search
 {
+    /// <summary>
+    /// class used to get all needed SQL statements for Search functionality
+    /// </summary>
     internal class SearchSQL
     {
-        public SearchSQL() { }
-
-        public string SearchAll()
+        /// <summary>
+        /// Returns SQL statements to get all invoice data
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchAll()
         {
-            string sql = "SELECT * FROM Invoices";
-            return sql;
+            try { return "SELECT * FROM Invoices"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SearchNum(int num)
+        /// <summary>
+        /// Returns SQL statements to search invoices by invoice number
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchNum(int num)
         {
-            string sql = "SELECT * FROM Invoices WHERE InvoiceNum = " + num;
-            return sql;
+            try{ return "SELECT * FROM Invoices WHERE InvoiceNum = " + num; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SearchNumDate(int num, string date)
+        /// <summary>
+        /// Returns SQL statements to search invoices by number and data
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchNumDate(int num, string date)
         {
-           string sql = "SELECT * FROM Invoices WHERE InvoiceNum=" + num+ " AND InvoiceDate = #" + date+ "#"; 
-           return sql;
+            try{ return "SELECT * FROM Invoices WHERE InvoiceNum=" + num+ " AND InvoiceDate = #" + date+ "#"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-       public string SearchNumDateCharges(int num, string date, int charges)
+        /// <summary>
+        /// Returns SQL statements to search invoices by number, date, and cost
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchNumDateCharges(int num, string date, int charges)
         {
-            string sql = "SELECT * FROM Invoices WHERE InvoiceNum = " + num + " AND InvoiceDate = #" + date + "# AND TotalCost = " + charges;
-            return sql;
+            try{ return "SELECT * FROM Invoices WHERE InvoiceNum = " + num + " AND InvoiceDate = #" + date + "# AND TotalCost = " + charges; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SearchCharges(int charges) 
+        /// <summary>
+        /// Returns SQL statements to search invoices by cost
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchCharges(int charges) 
         {
-            string sql = "SELECT * FROM Invoices WHERE TotalCost = " + charges;
-            return sql;
+            try{ return "SELECT * FROM Invoices WHERE TotalCost = " + charges; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SearchDateCharges(string date, int charges)
+        /// <summary>
+        /// Returns SQL statements to search invoices by date and cost
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchDateCharges(string date, int charges)
         {
-            string sql = "SELECT * FROM Invoices WHERE InvoiceDate = #" + date + "# AND TotalCost = " + charges;
-            return sql;
+            try{ return "SELECT * FROM Invoices WHERE InvoiceDate = #" + date + "# AND TotalCost = " + charges; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SearchDate(string date)
+        /// <summary>
+        /// Returns SQL statements to search invoices by date
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchDate(string date)
         {
-            string sql = "SELECT * FROM Invoices WHERE InvoiceDate = #" + date + "#";
-            return sql;
+            try{ return "SELECT * FROM Invoices WHERE InvoiceDate = #" + date + "#"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SearchDistinctNum(int num)
+        /// <summary>
+        /// Returns SQL statements to return all of the invoice numbers from all existing invoices
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchDistinctNum(int num)
         {
-            string sql = "SELECT DISTINCT(InvoiceNum) From Invoices order by InvoiceNum";
-            return sql;
+            try{ return "SELECT DISTINCT(InvoiceNum) From Invoices order by InvoiceNum"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SearchDistinctDate(string date)
+        /// <summary>
+        /// Returns SQL statements to return all dates from all existing invoices
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchDistinctDate(string date)
         {
-            string sql = "SELECT DISTINCT(InvoiceDate) From Invoices order by InvoiceDate";
-            return sql;
+            try{ return "SELECT DISTINCT(InvoiceDate) From Invoices order by InvoiceDate"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public string SearchDistinctCost(int charges)
+        /// <summary>
+        /// Returns SQL statements to return costs from all existing invoices
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchDistinctCost(int charges)
         {
-            string sql = "SELECT DISTINCT(TotalCost) From Invoices order by TotalCost";
-            return sql;
+            try{ return "SELECT DISTINCT(TotalCost) From Invoices order by TotalCost"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
-
-
- 
-
-
-
     }
 }

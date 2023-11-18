@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "cjxbFxzS7z1v7Q0kHNQkcxYWG83BdXW0jPhp5WMy/TMQhhPFg3LsMEGMs2Q9PxwRUN9LLSaj//nRWB7+tunKNA==",
+  "dgSpecHash": "1Fsl+21AuxJcK/tPl9T5hhLJ7v/10Br7ncTpzwt5AYP6BETA2Gm9GywkbAAmYbjrG/WOmmYDfa6EcFI789rnDA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\Group Assignment\\CS3280GroupProject\\GroupPrject.csproj",
+  "projectFilePath": "C:\\Users\\Jacob\\Documents\\School Work\\CS 3280\\Visual Studio\\CS3280GroupProject\\GroupPrject.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\shayk\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
-    "C:\\Users\\shayk\\.nuget\\packages\\system.data.oledb\\8.0.0\\system.data.oledb.8.0.0.nupkg.sha512",
-    "C:\\Users\\shayk\\.nuget\\packages\\system.diagnostics.performancecounter\\8.0.0\\system.diagnostics.performancecounter.8.0.0.nupkg.sha512",
-    "C:\\Users\\shayk\\.nuget\\packages\\system.security.cryptography.protecteddata\\8.0.0\\system.security.cryptography.protecteddata.8.0.0.nupkg.sha512"
+    "C:\\Users\\Jacob\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
+    "C:\\Users\\Jacob\\.nuget\\packages\\system.data.oledb\\8.0.0\\system.data.oledb.8.0.0.nupkg.sha512",
+    "C:\\Users\\Jacob\\.nuget\\packages\\system.diagnostics.performancecounter\\8.0.0\\system.diagnostics.performancecounter.8.0.0.nupkg.sha512",
+    "C:\\Users\\Jacob\\.nuget\\packages\\system.security.cryptography.protecteddata\\8.0.0\\system.security.cryptography.protecteddata.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

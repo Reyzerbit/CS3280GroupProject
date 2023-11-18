@@ -24,11 +24,11 @@ namespace GroupPrject.Items
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         /// 
-        public List<clsItem> GetAllItems()
+        public List<Item> GetAllItems()
         {
             try
             {
-                List<clsItem> Items = new List<clsItem>();
+                List<Item> Items = new List<Item>();
                 int i = 0;
                 DataSet ds = new DataSet();
                 ds = DataAccess.ExecuteSQLStatement(ItemsSQL.GetItems(), ref i);
@@ -37,20 +37,12 @@ namespace GroupPrject.Items
 
                 foreach (DataRow row in ItemTable.Rows)
                 {
-                    clsItem Item = new clsItem();
-                    Item.ItemCode = row[0].ToString();
-                    Item.ItemDesc = row[1].ToString();
-                    Item.Cost = row[2].ToString();
-
+                    Item Item = new Item(row[0].ToString(), row[1].ToString(), row[2].ToString());
                     Items.Add(Item);
                 }
                 return Items;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
     }
 }

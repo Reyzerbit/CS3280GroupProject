@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace GroupPrject.Items
 {
+    /// <summary>
+    /// Class used to retrieve SQL statements for Item functionality
+    /// </summary>
     internal class ItemsSQL
     {
         /// <summary>
@@ -17,16 +20,8 @@ namespace GroupPrject.Items
         /// <exception cref="Exception"></exception>
         public static string GetItems()
         {
-            try
-            {
-                string sSQL = "SELECT ItemCode, ItemDesc, Cost from ItemDesc";
-                return sSQL;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
+            try { return "SELECT ItemCode, ItemDesc, Cost from ItemDesc"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
         /// <summary>
@@ -37,16 +32,8 @@ namespace GroupPrject.Items
         /// <exception cref="Exception"></exception>
         public static string GetInvoiceNum(string ItemCode)
         {
-            try
-            {
-                string sSQL = "SELECT distinct(InvoiceNum) from LineItems where ItemCode = '" + ItemCode + "'";
-                return sSQL;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
+            try { return "SELECT distinct(InvoiceNum) from LineItems where ItemCode = '" + ItemCode + "'"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
         /// <summary>
@@ -59,16 +46,8 @@ namespace GroupPrject.Items
         /// <exception cref="Exception"></exception>
         public static string UpdateItemDesc(string ItemDesc, string ItemCode, string Cost)
         {
-            try
-            {
-                string sSQL = "Update ItemDesc Set ItemDesc = '" + ItemDesc + "', Cost = " + Cost + " where ItemCode = '" + ItemCode + "'";
-                return sSQL;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
+            try { return "Update ItemDesc Set ItemDesc = '" + ItemDesc + "', Cost = " + Cost + " where ItemCode = '" + ItemCode + "'"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
         /// <summary>
@@ -81,16 +60,8 @@ namespace GroupPrject.Items
         /// <exception cref="Exception"></exception>
         public static string InsertIntoItemDesc(string ItemCode, string ItemDesc, string Cost)
         {
-            try
-            {
-                string sSQL = "Insert into ItemDesc(ItemCode, ItemDesc, Cost) Values('" + ItemCode + "', '" + ItemDesc + "', " + Cost + ")";
-                return sSQL;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
+            try { return "Insert into ItemDesc(ItemCode, ItemDesc, Cost) Values('" + ItemCode + "', '" + ItemDesc + "', " + Cost + ")"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
         /// <summary>
@@ -101,16 +72,8 @@ namespace GroupPrject.Items
         /// <exception cref="Exception"></exception>
         public static string DeleteFromItemDesc(string ItemCode)
         {
-            try
-            {
-                string sSQL = "Delete from ItemDesc Where ItemCode = '" + ItemCode + "'";
-                return sSQL;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
+            try { return "Delete from ItemDesc Where ItemCode = '" + ItemCode + "'"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,45 +20,72 @@ namespace GroupPrject.Search
     /// </summary>
     public partial class SearchWindow : Window
     {
+        /// <summary>
+        /// MainWindow instance passed in constructor
+        /// </summary>
+        private MainWindow home;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="home"></param>
+        /// <exception cref="Exception"></exception>
         public SearchWindow(MainWindow home)
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+                this.home = home;
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        /// <summary>
+        /// Receives the Users invoice number, sends to SearchLogic
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InvNumPass(object sender, EventArgs e)
         {
-            // receives the Users invoice number, sends to SearchLogic
-
-            //ReturnFromSearchWindow()
         }
 
+        /// <summary>
+        /// Receives the Users invoice date, sends to SearchLogic
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InvDatePass(object sender, EventArgs e)
         {
-            // receives the Users invoice date, sends to SearchLogic
-
         }
 
+        /// <summary>
+        /// Receives the Users Invoice charges list and sends to search logic
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InvChargePass(object sender, EventArgs e)
         {
-            //Receives the Users Invoice charges list and sends to search logic
         }
 
+        /// <summary>
+        /// Gets the selected invoice.
+        /// Calls "GetInvoice" from SearchLogic and return it to the MainWindow via ReturnFromSearchWindow().
+        /// When a item is selected from the datagrid, the lblSelectStatus will change and appear to
+        /// display the selected item to the user before they click the select button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectInvoice(object sender, RoutedEventArgs e)
         {
-            //gets the selected invoice. creates an object of type clsInvoice and passes it to the main ]
-            //Window using ReturnFromSearchWindow() in the MainLogic
+            // Invoice inv = SearchLogic.GetInvoice();
 
-            // when a item is selected from the datagrid, the lblSelectStatus will change and appear to 
-            // display the selected item to the user before they click the select button.
-
-            //for the prototype select button will just close the window
-            this.Close();
+            home.ReturnFromSearchWindow(/*inv*/);
         }
 
         private void CancelSearch(object sender, RoutedEventArgs e)
         {
-            //btnCancel will close the window and return to the Main window.
-            this.Close();
+            //Cancel will close the window and return to the Main window.
+            home.ReturnFromSearchWindow();
         }
     }
 }

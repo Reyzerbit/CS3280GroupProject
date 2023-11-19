@@ -58,6 +58,8 @@ namespace GroupPrject
 
                 // itemsWindow.getItem();
 
+                // This is also where the combo boxes will be updated
+
                 // itemsWindow.getTheStuff()
                 // Do stuff with the stuff
             }
@@ -74,6 +76,10 @@ namespace GroupPrject
                 searchWindow.Hide();
                 /*
                  * Invoice is passed back from search window, and stuff is done.
+                 * 
+                 * We are aware that instructions said to save invoice ID to local variable and tghen retrieve it,
+                 * but this way results in one less step of having to clear the local variable when we're done with it.
+                 * 
                  * if(invoice == null)
                  * else
                  */

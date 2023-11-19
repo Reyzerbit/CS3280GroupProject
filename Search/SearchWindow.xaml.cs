@@ -77,14 +77,18 @@ namespace GroupPrject.Search
         /// <param name="e"></param>
         private void SelectInvoice(object sender, RoutedEventArgs e)
         {
-            // Invoice inv = SearchLogic.GetInvoice();
+            // int inv = SearchLogic.GetInvoiceNumber();
 
             home.ReturnFromSearchWindow(/*inv*/);
         }
 
+        /// <summary>
+        /// Cancel will close the window and return to the Main window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CancelSearch(object sender, RoutedEventArgs e)
         {
-            //Cancel will close the window and return to the Main window.
             home.ReturnFromSearchWindow();
         }
     }

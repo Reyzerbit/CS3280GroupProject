@@ -56,6 +56,8 @@ namespace GroupPrject
             {
                 itemsWindow.Hide();
 
+                // itemsWindow.getItem();
+
                 // itemsWindow.getTheStuff()
                 // Do stuff with the stuff
             }
@@ -65,7 +67,7 @@ namespace GroupPrject
         /// <summary>
         /// This method is called by the Search Window from the passed in MainWindow reference when all logic is done.
         /// </summary>
-        public void ReturnFromSearchWindow(/*Invoice invoice = null*/)
+        public void ReturnFromSearchWindow(/*int invoice = null*/)
         {
             try
             {

@@ -9,6 +9,15 @@ namespace GroupPrject.Search
 {
     internal class SearchLogic
     {
+        /*
+         * NOTES TO PROFESSOR
+         * 
+         * This is not actually part of our submission,
+         * it is more of a work space where we talked about
+         * how our application would operate, and where things will go.
+         * 
+         * Please disreegard all contents of this file.
+         */
 
         // GroupPrject.Common.clsInvoice inv;
         private int ID;

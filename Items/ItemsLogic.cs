@@ -44,5 +44,63 @@ namespace GroupPrject.Items
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
+
+        /// <summary>
+        /// adds a passed in item to the datatbase
+        /// </summary>
+        /// <param name="item"></param>
+        /// <exception cref="Exception"></exception>
+        public void AddItem(Item item)
+        {
+            try
+            {
+                DataAccess.ExecuteNonQuery(ItemsSQL.InsertIntoItemDesc(item.ItemCode, item.ItemDesc, item.Cost));
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// deletes a passed in item from the database
+        /// </summary>
+        /// <param name="item"></param>
+        /// <exception cref="Exception"></exception>
+        public void DeleteItem(Item item)
+        {
+            try
+            {
+                DataAccess.ExecuteNonQuery(ItemsSQL.DeleteFromItemDesc(item.ItemCode));
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Gets the invoice number of a given item
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string GetInvoiceNum(Item item)
+        {
+            try
+            {
+                string invoice = DataAccess.ExecuteScalarSQL(ItemsSQL.GetInvoiceNum(item.ItemCode));
+                return invoice;
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Updates a given item with a new description and cost
+        /// </summary>
+        /// <param name="item"></param>
+        /// <exception cref="Exception"></exception>
+        public void UpdateItem(Item item)
+        {
+            try
+            {
+                DataAccess.ExecuteNonQuery(ItemsSQL.UpdateItemDesc(item.ItemDesc, item.ItemCode, item.Cost));
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
     }
 }

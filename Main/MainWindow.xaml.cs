@@ -54,7 +54,7 @@ namespace GroupPrject
         {
             try
             {
-                itemsWindow.Hide();
+                // itemsWindow.Hide();
 
                 // itemsWindow.getItem();
 

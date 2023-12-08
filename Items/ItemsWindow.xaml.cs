@@ -31,6 +31,10 @@ namespace GroupPrject.Items
         /// or update an existing one
         /// </summary>
         public bool isEditing;
+        /// <summary>
+        /// stores the item that was changed so the main window knows how to update the data
+        /// </summary>
+        public Item changedItem;
         public ItemsWindow(MainWindow home)
         {
             try
@@ -66,6 +70,9 @@ namespace GroupPrject.Items
                     {
                         // add the new item
                         itemsLogic.AddItem(item);
+
+                        // initialize the changed item so the main window knows which item is changed
+                        changedItem = item;
                     }
                     else if (isEditing == true)
                     {
@@ -74,6 +81,9 @@ namespace GroupPrject.Items
                         item.ItemCode = selectedItem.ItemCode;
                         // update the existing item
                         itemsLogic.UpdateItem(item);
+
+                        // initialize the changed item so the main window knows which item is changed
+                        changedItem = item;
                     }
 
                     // disable and reset text boxes
@@ -83,6 +93,10 @@ namespace GroupPrject.Items
                     txtCode.Text = "";
                     txtCost.Text = "";
                     txtDesc.Text = "";
+
+                    btnEditItem.IsEnabled = true;
+                    btnDeleteItem.IsEnabled = true;
+                    btnAddItem.IsEnabled = true;
                     // update data grid
                     dgItems.ItemsSource = itemsLogic.GetAllItems();
 
@@ -107,6 +121,9 @@ namespace GroupPrject.Items
                 txtCode.IsEnabled = true;
                 txtCost.IsEnabled = true;
                 txtDesc.IsEnabled = true;
+
+                btnEditItem.IsEnabled = false;
+                btnDeleteItem.IsEnabled = false;
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
@@ -136,13 +153,26 @@ namespace GroupPrject.Items
                         // update datagrid
                         dgItems.ItemsSource = itemsLogic.GetAllItems();
 
+                        // initialize the changed item so the main window knows which item is changed
+                        changedItem = item;
+
                         home.NotifyOfItemsWindowChange();
+                    }
+                    else
+                    {
+                        MessageBox.Show("You cannot delete this item because it is used on this invoice: " + invoice, "Error");
                     }
                 }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        /// <summary>
+        /// Event handler for edit item button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
         private void btnEditItem_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -150,10 +180,33 @@ namespace GroupPrject.Items
                 // enable text boxes
                 txtCost.IsEnabled = true;
                 txtDesc.IsEnabled = true;
+                btnAddItem.IsEnabled = false;
+                btnDeleteItem.IsEnabled = false;
 
                 isEditing = true;
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Event Handler for close window button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+            // hide the window
+            this.Hide();
+        }
+
+        /// <summary>
+        /// returns an item object so the mainWindow knows which item was changed
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public Item getItem()
+        {
+            return changedItem;
         }
     }
 }

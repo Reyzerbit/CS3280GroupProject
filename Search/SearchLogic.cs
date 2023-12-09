@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Assignment_6;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +26,7 @@ namespace GroupPrject.Search
         private string Date;
         private int charge;
 
+
         public SearchLogic(int num = -1, string date = "", int price = -1)
         {
             // takes values from the UI elements and sets the class variables
@@ -34,12 +37,37 @@ namespace GroupPrject.Search
 
         public DataSet ReturnQuery()
         {
-            // gets the query and will return it to the SearchWindow to be added to the Datagrid
-            DataSet ds = new DataSet();
+            try
+            {
+                // gets the query and will return it to the SearchWindow to be added to the Datagrid
+                DataSet ds = new DataSet();
+                string ret = SearchSQL.SearchAll();
+                // will check what values have been saved validly to call the right sql statement for query. 
 
-            // will check what values have been saved validly to call the right sql statement for query. 
+                return ds;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+            
+        }
 
-            return ds;
+        public DataSet ReturnAll()
+        {
+            try
+            {
+                // gets the query and will return it to the SearchWindow to be added to the Datagrid
+                DataSet ds = new DataSet();
+                string ret = SearchSQL.SearchAll();
+                int iRet = 0;
+                ds = DataAccess.ExecuteSQLStatement(ret, ref iRet);
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
     }
 }

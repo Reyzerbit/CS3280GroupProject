@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\doosm\\OneDrive\\School\\Computer Science\\3280\\source\\repos\\CS3280 Group Project\\GroupPrject.csproj": {}
+    "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\GroupPrject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\doosm\\OneDrive\\School\\Computer Science\\3280\\source\\repos\\CS3280 Group Project\\GroupPrject.csproj": {
+    "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\GroupPrject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\doosm\\OneDrive\\School\\Computer Science\\3280\\source\\repos\\CS3280 Group Project\\GroupPrject.csproj",
+        "projectUniqueName": "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\GroupPrject.csproj",
         "projectName": "GroupPrject",
-        "projectPath": "C:\\Users\\doosm\\OneDrive\\School\\Computer Science\\3280\\source\\repos\\CS3280 Group Project\\GroupPrject.csproj",
-        "packagesPath": "C:\\Users\\doosm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\doosm\\OneDrive\\School\\Computer Science\\3280\\source\\repos\\CS3280 Group Project\\obj\\",
+        "projectPath": "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\GroupPrject.csproj",
+        "packagesPath": "C:\\Users\\shayk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\doosm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\shayk\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -60,24 +61,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.25, 6.0.25]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x86",
-              "version": "[6.0.25, 6.0.25]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.25, 6.0.25]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.25, 6.0.25]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -86,7 +69,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

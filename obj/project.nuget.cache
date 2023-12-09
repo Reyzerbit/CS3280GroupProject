@@ -1,17 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "FNsCMIICMxHHTC7J1Afkb4e1hgL9antM1QmICMfusA3WWnPIb+AB9/ptXAQxOeHECqk/atQyJoQxiGE/QXx3Ww==",
+  "dgSpecHash": "ukhixceE9s9GL9xZMZYFMK4JxyFJUai1jgGkJGPOR7yUsu2Fl/aOOg0LqZxXdHy7bb2S2Y1Z9ZedUqfN6Z7yYQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\doosm\\OneDrive\\School\\Computer Science\\3280\\source\\repos\\CS3280 Group Project\\GroupPrject.csproj",
+  "projectFilePath": "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\GroupPrject.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\doosm\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
-    "C:\\Users\\doosm\\.nuget\\packages\\system.data.oledb\\8.0.0\\system.data.oledb.8.0.0.nupkg.sha512",
-    "C:\\Users\\doosm\\.nuget\\packages\\system.diagnostics.performancecounter\\8.0.0\\system.diagnostics.performancecounter.8.0.0.nupkg.sha512",
-    "C:\\Users\\doosm\\.nuget\\packages\\system.security.cryptography.protecteddata\\8.0.0\\system.security.cryptography.protecteddata.8.0.0.nupkg.sha512",
-    "C:\\Users\\doosm\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\doosm\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\doosm\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\doosm\\.nuget\\packages\\microsoft.netcore.app.host.win-x86\\6.0.25\\microsoft.netcore.app.host.win-x86.6.0.25.nupkg.sha512"
+    "C:\\Users\\shayk\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
+    "C:\\Users\\shayk\\.nuget\\packages\\system.data.oledb\\8.0.0\\system.data.oledb.8.0.0.nupkg.sha512",
+    "C:\\Users\\shayk\\.nuget\\packages\\system.diagnostics.performancecounter\\8.0.0\\system.diagnostics.performancecounter.8.0.0.nupkg.sha512",
+    "C:\\Users\\shayk\\.nuget\\packages\\system.security.cryptography.protecteddata\\8.0.0\\system.security.cryptography.protecteddata.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

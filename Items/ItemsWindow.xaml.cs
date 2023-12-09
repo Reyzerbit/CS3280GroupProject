@@ -1,8 +1,10 @@
 ﻿using GroupPrject.Common;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -21,7 +24,16 @@ namespace GroupPrject.Items
     /// </summary>
     public partial class ItemsWindow : Window
     {
-        private MainWindow home;
+        /// <summary>
+        /// A Lot of stuff used to remove the X icon from the window. This means that the close window button must be used.
+        /// </summary>
+        private const int GWL_STYLE = -16;
+        private const int WS_SYSMENU = 0x80000;
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
         /// <summary>
         /// itemslogic class to hold the business logic
         /// </summary>
@@ -35,13 +47,16 @@ namespace GroupPrject.Items
         /// stores the item that was changed so the main window knows how to update the data
         /// </summary>
         public Item changedItem;
-        public ItemsWindow(MainWindow home)
+        /// <summary>
+        /// List of all items, used for MainWindow to retrieve
+        /// </summary>
+        public IEnumerable<Item> Items => (IEnumerable<Item>) dgItems.ItemsSource;
+        public ItemsWindow()
         {
             try
             {
                 InitializeComponent();
 
-                this.home = home;
                 dgItems.ItemsSource = itemsLogic.GetAllItems();
                 txtCode.IsEnabled = false;
                 txtCost.IsEnabled = false;
@@ -84,6 +99,8 @@ namespace GroupPrject.Items
 
                         // initialize the changed item so the main window knows which item is changed
                         changedItem = item;
+                        // No longer editing
+                        isEditing = false;
                     }
 
                     // disable and reset text boxes
@@ -100,7 +117,7 @@ namespace GroupPrject.Items
                     // update data grid
                     dgItems.ItemsSource = itemsLogic.GetAllItems();
 
-                    home.NotifyOfItemsWindowChange();
+                    // home.NotifyOfItemsWindowChange();
                 }
 
             }
@@ -156,7 +173,7 @@ namespace GroupPrject.Items
                         // initialize the changed item so the main window knows which item is changed
                         changedItem = item;
 
-                        home.NotifyOfItemsWindowChange();
+                        // home.NotifyOfItemsWindowChange();
                     }
                     else
                     {
@@ -207,6 +224,21 @@ namespace GroupPrject.Items
         public Item getItem()
         {
             return changedItem;
+        }
+
+        /// <summary>
+        /// Used to remove the X Button from the pane.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                IntPtr hwnd = new WindowInteropHelper(this).Handle;
+                SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
     }
 }

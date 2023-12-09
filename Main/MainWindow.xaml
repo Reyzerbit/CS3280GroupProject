@@ -13,40 +13,40 @@
         </Menu>
         <StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30">
-                <Button Content="Create Invoice" Margin="0,0,20,0"/>
+                <Button Content="Create Invoice" Margin="0,0,20,0" Click="CreateInvoice"/>
                 <Button Content="Edit Invoice" Margin="0,0,20,0"/>
                 <Button Content="Save Invoice"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Left" Margin="30">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Invoice Date:"/>
-                    <Label x:Name="InvoiceDateLabel" Content=""/>
+                    <TextBlock x:Name="InvoiceDateBox" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Invoice Number:"/>
-                    <Label x:Name="InvoiceNumberLabel" Content=""/>
+                    <TextBlock x:Name="InvoiceNumberBox"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Total Cost:"/>
-                    <Label x:Name="InvoiceCostLabel" Content=""/>
+                    <TextBlock x:Name="InvoiceCostBox"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="30,0,30,0">
                 <StackPanel Margin="0,0,20,0" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                         <Label Content="Items:" Margin="0,0,20,0"/>
-                        <ComboBox Width="150" Margin="0,0,20,0"/>
-                        <Button Content="Add Item"/>
+                        <ComboBox x:Name="ItemsDropdown" Width="150" Margin="0,0,20,0" SelectionChanged="ItemsDropdownSelectionChanged"/>
+                        <Button x:Name="AddItemButton" Content="Add Item"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Cost:" Margin="0,0,20,0"/>
-                        <Label Width="150" Margin="0,0,20,0"/>
-                        <Button Content="Remove Item"/>
+                        <Label x:Name="SelectedItemCostLabel" Width="150" Margin="0,0,20,0"/>
+                        <Button x:Name="RemoveItemButton" Content="Remove Item"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Items on Invoice:"/>
-                    <DataGrid x:Name="dgItems" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                    <DataGrid x:Name="ItemsGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Width="400" Height="150"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

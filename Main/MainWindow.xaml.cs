@@ -35,7 +35,15 @@ namespace GroupPrject
         /// </summary>
         ItemsWindow itemsWindow;
 
+        /// <summary>
+        /// Invoice object. Can be null if no invoice is selected
+        /// </summary>
         Invoice invoice;
+
+        /// <summary>
+        /// Used to determine if invoice is being edited or not
+        /// </summary>
+        bool isEditing = false;
 
         /// <summary>
         /// Main window constructor
@@ -46,8 +54,11 @@ namespace GroupPrject
             try
             {
                 InitializeComponent();
-                searchWindow = new SearchWindow(this);
-                itemsWindow = new ItemsWindow(this);
+                searchWindow = new SearchWindow();
+                itemsWindow = new ItemsWindow();
+
+                ItemsDropdown.ItemsSource = itemsWindow.Items;
+                SetInvoiceEditable(false);
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
@@ -67,8 +78,8 @@ namespace GroupPrject
                 {
                     int invoiceNumber = searchWindow.invoiceNumber.Value;
                     searchWindow.invoiceNumber = null;
-                    // Process invoice get
-                    invoice = MainSQL.GetInvoiceData(invoiceNumber);
+                    invoice = MainLogic.GetInvoice(invoiceNumber);
+                    UpdateInvoiceUI();
                 }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
@@ -85,6 +96,76 @@ namespace GroupPrject
             try
             {
                 itemsWindow.ShowDialog();
+                ItemsDropdown.ItemsSource = itemsWindow.Items;
+                ItemsDropdown.SelectedItem = null;
+                SelectedItemCostLabel.Content = null;
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Called when Items dropdown is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ItemsDropdownSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if(ItemsDropdown.SelectedItem != null) SelectedItemCostLabel.Content = ((Item)ItemsDropdown.SelectedItem).Cost.ToString();
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Helper function for enabling/disabling item UI
+        /// </summary>
+        /// <param name="editable"></param>
+        private void SetInvoiceEditable(bool editable)
+        {
+            try
+            {
+                ItemsDropdown.IsEnabled = editable;
+                AddItemButton.IsEnabled = editable;
+                RemoveItemButton.IsEnabled = editable;
+                InvoiceDateBox.IsEnabled = editable;
+                InvoiceNumberBox.IsEnabled = editable;
+                InvoiceCostBox.IsEnabled = editable;
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Helper function to update UI when invoice is loaded
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        private void UpdateInvoiceUI()
+        {
+            try
+            {
+                if (invoice != null)
+                {
+                    InvoiceDateBox.Text = invoice.InvDate.ToString();
+                    InvoiceNumberBox.Text = invoice.InvNum.ToString();
+                    InvoiceCostBox.Text = invoice.InvCharge.ToString();
+                    SetInvoiceEditable(isEditing);
+                }
+                else
+                {
+                    InvoiceDateBox.Text = "";
+                    InvoiceNumberBox.Text = "";
+                    InvoiceCostBox.Text = "";
+                    SetInvoiceEditable(false);
+                }
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        private void CreateInvoice(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }

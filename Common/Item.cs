@@ -33,5 +33,10 @@ namespace GroupPrject.Common
             ItemDesc = desc;
             Cost = cost;
         }
+
+        public override string ToString()
+        {
+            return $"{ItemCode} - {ItemDesc}";
+        }
     }
 }

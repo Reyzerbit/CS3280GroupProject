@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupPrject.Items"
         mc:Ignorable="d"
-        Title="ItemsWindow" Height="450" Width="800">
+        Title="ItemsWindow" Height="450" Width="800"
+        Loaded="WindowLoaded">
     <Canvas Background="#4c6444">
         <DataGrid x:Name="dgItems" Height="246" Canvas.Left="51" Canvas.Top="31" Width="327" Background="#FFCABA9C" CanUserAddRows="False"/>
         <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnAddItem_Click" Canvas.Left="451" Canvas.Top="217" Width="75" Height="25"/>

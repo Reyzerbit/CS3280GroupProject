@@ -46,7 +46,7 @@ namespace GroupPrject.Items
         /// <summary>
         /// stores the item that was changed so the main window knows how to update the data
         /// </summary>
-        public Item changedItem;
+        public bool ItemsHaveChanged = false;
         /// <summary>
         /// List of all items, used for MainWindow to retrieve
         /// </summary>
@@ -85,9 +85,6 @@ namespace GroupPrject.Items
                     {
                         // add the new item
                         itemsLogic.AddItem(item);
-
-                        // initialize the changed item so the main window knows which item is changed
-                        changedItem = item;
                     }
                     else if (isEditing == true)
                     {
@@ -97,8 +94,6 @@ namespace GroupPrject.Items
                         // update the existing item
                         itemsLogic.UpdateItem(item);
 
-                        // initialize the changed item so the main window knows which item is changed
-                        changedItem = item;
                         // No longer editing
                         isEditing = false;
                     }
@@ -117,7 +112,7 @@ namespace GroupPrject.Items
                     // update data grid
                     dgItems.ItemsSource = itemsLogic.GetAllItems();
 
-                    // home.NotifyOfItemsWindowChange();
+                    ItemsHaveChanged = true;
                 }
 
             }
@@ -170,8 +165,7 @@ namespace GroupPrject.Items
                         // update datagrid
                         dgItems.ItemsSource = itemsLogic.GetAllItems();
 
-                        // initialize the changed item so the main window knows which item is changed
-                        changedItem = item;
+                        ItemsHaveChanged = true;
 
                         // home.NotifyOfItemsWindowChange();
                     }
@@ -214,16 +208,6 @@ namespace GroupPrject.Items
         {
             // hide the window
             this.Hide();
-        }
-
-        /// <summary>
-        /// returns an item object so the mainWindow knows which item was changed
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        public Item getItem()
-        {
-            return changedItem;
         }
 
         /// <summary>

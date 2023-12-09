@@ -40,6 +40,16 @@ namespace GroupPrject.Main
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
         /// <summary>
+        /// Returns SQL statements to get latest added invoice
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string GetLatestAddedInvoiceID()
+        {
+            try { return $"SELECT MAX(InvoiceNum) FROM Invoices"; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+        /// <summary>
         /// Returns SQL statements to get num, date, and cost from invoice data
         /// </summary>
         /// <returns></returns>
@@ -64,9 +74,9 @@ namespace GroupPrject.Main
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static string GetAllLineItemsInInvoice(int invoicerNum)
+        public static string GetAllLineItemsInInvoice(int invoiceNum)
         {
-            try { return $"SELECT LineItems.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost FROM LineItems, ItemDesc Where LineItems.ItemCode = ItemDesc.ItemCode And LineItems.InvoiceNum = {invoicerNum}"; }
+            try { return $"SELECT LineItems.ItemCode, ItemDesc.ItemDesc, ItemDesc.Cost FROM LineItems, ItemDesc Where LineItems.ItemCode = ItemDesc.ItemCode And LineItems.InvoiceNum = {invoiceNum}"; }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
         /// <summary>

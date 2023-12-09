@@ -46,6 +46,11 @@ namespace GroupPrject
         bool isEditing = false;
 
         /// <summary>
+        /// Items for an invoice
+        /// </summary>
+        List<Item> items = new List<Item>();
+
+        /// <summary>
         /// Main window constructor
         /// </summary>
         /// <exception cref="Exception"></exception>
@@ -96,9 +101,13 @@ namespace GroupPrject
             try
             {
                 itemsWindow.ShowDialog();
-                ItemsDropdown.ItemsSource = itemsWindow.Items;
-                ItemsDropdown.SelectedItem = null;
-                SelectedItemCostLabel.Content = null;
+                if (itemsWindow.ItemsHaveChanged)
+                {
+                    ItemsDropdown.ItemsSource = itemsWindow.Items;
+                    ItemsDropdown.SelectedItem = null;
+                    SelectedItemCostLabel.Content = null;
+                    itemsWindow.ItemsHaveChanged = false;
+                }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
@@ -128,9 +137,8 @@ namespace GroupPrject
                 ItemsDropdown.IsEnabled = editable;
                 AddItemButton.IsEnabled = editable;
                 RemoveItemButton.IsEnabled = editable;
-                InvoiceDateBox.IsEnabled = editable;
-                InvoiceNumberBox.IsEnabled = editable;
-                InvoiceCostBox.IsEnabled = editable;
+                SaveButton.IsEnabled = editable;
+                EditButton.IsEnabled = !editable && invoice != null;
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
@@ -143,29 +151,119 @@ namespace GroupPrject
         {
             try
             {
+                ItemsGrid.ItemsSource = null;
                 if (invoice != null)
                 {
-                    InvoiceDateBox.Text = invoice.InvDate.ToString();
-                    InvoiceNumberBox.Text = invoice.InvNum.ToString();
-                    InvoiceCostBox.Text = invoice.InvCharge.ToString();
+                    InvoiceDateLabel.Content = invoice.InvDate.ToString();
+                    InvoiceNumberLabel.Content = invoice.InvNum.ToString();
+                    ItemsGrid.ItemsSource = items;
+
+                    int cost = 0;
+                    foreach(Item item in items) cost += int.Parse(item.Cost);
+                    InvoiceCostLabel.Content = cost.ToString();
+
                     SetInvoiceEditable(isEditing);
                 }
                 else
                 {
-                    InvoiceDateBox.Text = "";
-                    InvoiceNumberBox.Text = "";
-                    InvoiceCostBox.Text = "";
+                    InvoiceDateLabel.Content = "";
+                    InvoiceNumberLabel.Content = "";
+                    InvoiceCostLabel.Content = "";
                     SetInvoiceEditable(false);
                 }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        /// <summary>
+        /// Called when create invoice is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
         private void CreateInvoice(object sender, RoutedEventArgs e)
         {
             try
             {
-                
+                invoice = MainLogic.AddInvoice(DateTime.Now.ToString("MM/dd/yyyy"), 0);
+                items = new List<Item>();
+                UpdateInvoiceUI();
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Called when edit invoice is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
+        private void EditInvoice(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                isEditing = true;
+                UpdateInvoiceUI();
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Called when add item is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
+        private void AddItem(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Item selected = ItemsDropdown.SelectedItem as Item;
+                items.Add(selected);
+                UpdateInvoiceUI();
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Called when remove item is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
+        private void RemoveItem(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (ItemsGrid.SelectedItem == null) return;
+                Item selected = ItemsGrid.SelectedItem as Item;
+                items.Remove(selected);
+                UpdateInvoiceUI();
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Called when save invoice is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
+        private void SaveInvoice(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MainLogic.DeleteLines(invoice);
+                for(int x = 0 ; x < items.Count ; x++)
+                {
+                    MainLogic.AddLineItem(items[x], invoice, x + 1);
+                }
+
+                ItemsDropdown.SelectedItem = null;
+                SelectedItemCostLabel.Content = null;
+
+                isEditing = false;
+                UpdateInvoiceUI();
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }

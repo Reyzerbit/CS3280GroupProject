@@ -5,48 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupPrject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="800">
     <Grid>
-        <Menu>
-            <MenuItem Header="Search" Click="OpenSearch"/>
-            <MenuItem Header="Items" Click="OpenItems"/>
-        </Menu>
-        <StackPanel>
+        <StackPanel Background="#FF4C6444">
+            <Menu Background="#FF102820" Height="20">
+                <MenuItem Header="Search" Click="OpenSearch" Background="#FFCABA9C"/>
+                <MenuItem Header="Items" Click="OpenItems" Background="#FFCABA9C"/>
+            </Menu>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30">
-                <Button Content="Create Invoice" Margin="0,0,20,0" Click="CreateInvoice"/>
-                <Button Content="Edit Invoice" Margin="0,0,20,0"/>
-                <Button Content="Save Invoice"/>
+                <Button Content="Create Invoice" Margin="0,0,20,0" Click="CreateInvoice" Background="#FFCABA9C"/>
+                <Button x:Name="EditButton" Content="Edit Invoice" Margin="0,0,20,0" Click="EditInvoice" Background="#FFCABA9C"/>
+                <Button x:Name="SaveButton" Content="Save Invoice" Click="SaveInvoice" Background="#FFCABA9C"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Left" Margin="30">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Invoice Date:"/>
-                    <TextBlock x:Name="InvoiceDateBox" />
+                    <Label x:Name="InvoiceDateLabel" Width="200"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Invoice Number:"/>
-                    <TextBlock x:Name="InvoiceNumberBox"/>
+                    <Label x:Name="InvoiceNumberLabel" Width="200"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Total Cost:"/>
-                    <TextBlock x:Name="InvoiceCostBox"/>
+                    <Label x:Name="InvoiceCostLabel" Width="200"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="30,0,30,0">
                 <StackPanel Margin="0,0,20,0" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                         <Label Content="Items:" Margin="0,0,20,0"/>
-                        <ComboBox x:Name="ItemsDropdown" Width="150" Margin="0,0,20,0" SelectionChanged="ItemsDropdownSelectionChanged"/>
-                        <Button x:Name="AddItemButton" Content="Add Item"/>
+                        <ComboBox x:Name="ItemsDropdown" Width="150" Margin="0,0,20,0" SelectionChanged="ItemsDropdownSelectionChanged">
+                            <ComboBox.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="#FFF0F0F0"/>
+                                    <GradientStop Color="#FFCABA9C" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ComboBox.Background>
+                        </ComboBox>
+                        <Button x:Name="AddItemButton" Content="Add Item" Click="AddItem" Background="#FFCABA9C"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Cost:" Margin="0,0,20,0"/>
                         <Label x:Name="SelectedItemCostLabel" Width="150" Margin="0,0,20,0"/>
-                        <Button x:Name="RemoveItemButton" Content="Remove Item"/>
+                        <Button x:Name="RemoveItemButton" Content="Remove Item" Click="RemoveItem" Background="#FFCABA9C"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Items on Invoice:"/>
-                    <DataGrid x:Name="ItemsGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Width="400" Height="150"/>
+                    <DataGrid x:Name="ItemsGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Width="400" Height="150" IsReadOnly="True" Background="#FFCABA9C"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

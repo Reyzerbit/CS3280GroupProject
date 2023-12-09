@@ -24,6 +24,7 @@ namespace GroupPrject.Search
         /// MainWindow instance passed in constructor
         /// </summary>
         private MainWindow home;
+        public int? invoiceNumber = null;
 
         /// <summary>
         /// Constructor
@@ -77,9 +78,8 @@ namespace GroupPrject.Search
         /// <param name="e"></param>
         private void SelectInvoice(object sender, RoutedEventArgs e)
         {
-            // int inv = SearchLogic.GetInvoiceNumber();
-
-            home.ReturnFromSearchWindow(/*inv*/);
+            // invoiceNumber = SearchLogic.GetInvoiceNumber();
+            this.Close();
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace GroupPrject.Search
         /// <param name="e"></param>
         private void CancelSearch(object sender, RoutedEventArgs e)
         {
-            home.ReturnFromSearchWindow();
+            this.Close();
         }
     }
 }

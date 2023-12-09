@@ -1,5 +1,6 @@
 ﻿using GroupPrject.Common;
 using GroupPrject.Items;
+using GroupPrject.Main;
 using GroupPrject.Search;
 using System;
 using System.Collections.Generic;
@@ -28,10 +29,14 @@ namespace GroupPrject
         /// Search window instance
         /// </summary>
         SearchWindow searchWindow;
+
         /// <summary>
         /// Items window instance
         /// </summary>
         ItemsWindow itemsWindow;
+
+        Invoice invoice;
+
         /// <summary>
         /// Main window constructor
         /// </summary>
@@ -43,46 +48,6 @@ namespace GroupPrject
                 InitializeComponent();
                 searchWindow = new SearchWindow(this);
                 itemsWindow = new ItemsWindow(this);
-            }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
-        }
-        
-        /// <summary>
-        /// This method is called by the Items Window from the passed in MainWindow reference when a change has been made.
-        /// </summary>
-        public void NotifyOfItemsWindowChange()
-        {
-            try
-            {
-                itemsWindow.Hide();
-
-                // itemsWindow.getItem();
-
-                // This is also where the combo boxes will be updated
-
-                // itemsWindow.getTheStuff()
-                // Do stuff with the stuff
-            }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
-        }
-
-        /// <summary>
-        /// This method is called by the Search Window from the passed in MainWindow reference when all logic is done.
-        /// </summary>
-        public void ReturnFromSearchWindow(/*int invoice = null*/)
-        {
-            try
-            {
-                searchWindow.Hide();
-                /*
-                 * Invoice is passed back from search window, and stuff is done.
-                 * 
-                 * We are aware that instructions said to save invoice ID to local variable and tghen retrieve it,
-                 * but this way results in one less step of having to clear the local variable when we're done with it.
-                 * 
-                 * if(invoice == null)
-                 * else
-                 */
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
@@ -98,6 +63,13 @@ namespace GroupPrject
             try
             {
                 searchWindow.ShowDialog();
+                if (searchWindow.invoiceNumber != null)
+                {
+                    int invoiceNumber = searchWindow.invoiceNumber.Value;
+                    searchWindow.invoiceNumber = null;
+                    // Process invoice get
+                    invoice = MainSQL.GetInvoiceData(invoiceNumber);
+                }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }

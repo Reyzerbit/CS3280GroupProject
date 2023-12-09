@@ -13,6 +13,7 @@
         </Menu>
         <StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30">
+                <Button Content="Create Invoice" Margin="0,0,20,0"/>
                 <Button Content="Edit Invoice" Margin="0,0,20,0"/>
                 <Button Content="Save Invoice"/>
             </StackPanel>

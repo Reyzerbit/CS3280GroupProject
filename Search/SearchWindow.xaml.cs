@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Assignment_6;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -37,6 +39,11 @@ namespace GroupPrject.Search
             {
                 InitializeComponent();
                 this.home = home;
+                SearchLogic logic = new SearchLogic();
+
+                //fill datagrid with default data.
+                DataSet ds = new DataSet();
+                ds = logic.ReturnAll();
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
@@ -46,17 +53,18 @@ namespace GroupPrject.Search
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void InvNumPass(object sender, EventArgs e)
+        private void InvNumPass(object sender, SelectionChangedEventArgs e)
         {
-        }
 
+        }
         /// <summary>
         /// Receives the Users invoice date, sends to SearchLogic
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void InvDatePass(object sender, EventArgs e)
+        private void InvDatePass(object sender, SelectionChangedEventArgs e)
         {
+
         }
 
         /// <summary>
@@ -64,8 +72,9 @@ namespace GroupPrject.Search
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void InvChargePass(object sender, EventArgs e)
+        private void InvChargePass(object sender, SelectionChangedEventArgs e)
         {
+
         }
 
         /// <summary>
@@ -87,9 +96,11 @@ namespace GroupPrject.Search
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CancelSearch(object sender, RoutedEventArgs e)
+        private void ClearSearch(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
+        
     }
 }

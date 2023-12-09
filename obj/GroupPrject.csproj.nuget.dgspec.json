@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jacob\\Documents\\School Work\\CS 3280\\Visual Studio\\CS3280GroupProject\\GroupPrject.csproj": {}
+    "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\GroupPrject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jacob\\Documents\\School Work\\CS 3280\\Visual Studio\\CS3280GroupProject\\GroupPrject.csproj": {
+    "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\GroupPrject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jacob\\Documents\\School Work\\CS 3280\\Visual Studio\\CS3280GroupProject\\GroupPrject.csproj",
+        "projectUniqueName": "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\GroupPrject.csproj",
         "projectName": "GroupPrject",
-        "projectPath": "C:\\Users\\Jacob\\Documents\\School Work\\CS 3280\\Visual Studio\\CS3280GroupProject\\GroupPrject.csproj",
-        "packagesPath": "C:\\Users\\Jacob\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jacob\\Documents\\School Work\\CS 3280\\Visual Studio\\CS3280GroupProject\\obj\\",
+        "projectPath": "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\GroupPrject.csproj",
+        "packagesPath": "C:\\Users\\shayk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\shayk\\OneDrive\\Desktop\\CS 3280\\GroupAssignmentCopy\\CS3280GroupProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Jacob\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\shayk\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -69,7 +69,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

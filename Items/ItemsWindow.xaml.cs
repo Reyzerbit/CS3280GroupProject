@@ -24,15 +24,6 @@ namespace GroupPrject.Items
     /// </summary>
     public partial class ItemsWindow : Window
     {
-        /// <summary>
-        /// A Lot of stuff used to remove the X icon from the window. This means that the close window button must be used.
-        /// </summary>
-        private const int GWL_STYLE = -16;
-        private const int WS_SYSMENU = 0x80000;
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-        [DllImport("user32.dll")]
-        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
         /// <summary>
         /// itemslogic class to hold the business logic
@@ -194,33 +185,30 @@ namespace GroupPrject.Items
                 btnAddItem.IsEnabled = false;
                 btnDeleteItem.IsEnabled = false;
 
+                txtCost.Text = ((Item) dgItems.SelectedItem).Cost.ToString();
+                txtDesc.Text = ((Item)dgItems.SelectedItem).ItemDesc.ToString();
+                txtCode.Text = ((Item)dgItems.SelectedItem).ItemCode.ToString();
+
                 isEditing = true;
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
         /// <summary>
-        /// Event Handler for close window button click
+        /// Called when window is closing
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnCloseWindow_Click(object sender, RoutedEventArgs e)
-        {
-            // hide the window
-            this.Hide();
-        }
-
-        /// <summary>
-        /// Used to remove the X Button from the pane.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WindowLoaded(object sender, RoutedEventArgs e)
+        /// <exception cref="Exception"></exception>
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
-                IntPtr hwnd = new WindowInteropHelper(this).Handle;
-                SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
+                if (!MainWindow.ClosedFromMain)
+                {
+                    this.Hide();
+                    e.Cancel = true;
+                }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }

@@ -103,5 +103,20 @@ namespace GroupPrject.Main
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
+
+        /// <summary>
+        /// Updates invoice cost
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static void UpdateInvoiceCost(Invoice inv)
+        {
+            try
+            {
+                DataAccess.ExecuteNonQuery(MainSQL.UpdateInvoiceCost(inv.InvCharge, inv.InvNum));
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
     }
 }

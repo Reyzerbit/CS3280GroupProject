@@ -1,4 +1,5 @@
 ﻿using Assignment_6;
+using GroupPrject.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,168 +13,125 @@ namespace GroupPrject.Search
 {
     internal class SearchLogic
     {
-        /*
-         * NOTES TO PROFESSOR
-         * 
-         * This is not actually part of our submission,
-         * it is more of a work space where we talked about
-         * how our application would operate, and where things will go.
-         * 
-         * Please disreegard all contents of this file.
-         */
-
-        // GroupPrject.Common.clsInvoice inv;
-        private int ID;
-        private string Date;
-        private int charge;
-
-
-        public SearchLogic(int num = -1, string date = "", int price = -1)
-        {
-            // takes values from the UI elements and sets the class variables
-            ID = num;
-            Date = date;
-            charge = price;
-        }
-
-        public DataSet ReturnQuery(int num = -1, string date = "0-0-0000", int total = -1)
+        public static List<Invoice> ReturnQuery(int? num = null, string? date = null, int? total = null)
         {
             try
             {
-                // gets the query and will return it to the SearchWindow to be added to the Datagrid
-                DataSet ds = new DataSet();
+                List<Invoice> invoices = new List<Invoice>();
+                int results = 0;
 
                 //if num was passed (not date or total)
-                if (num != -1 && date == "0-0-0000" && total == -1)
+                if (num != null && date == null && total == null)
                 {
                     //SearchNum(int num)
-                    string query = SearchSQL.SearchNum(num);
-                    int iRet = 0;
-                    ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
+                    DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchNum(num.Value), ref results);
+                    foreach(DataRow row in ds.Tables[0].Rows) { invoices.Add(new Invoice(int.Parse(row[0].ToString()), row[1].ToString(), int.Parse(row[2].ToString()))); }
                 }
 
                 //if num and date were passed (not total)
-                else if (num != -1 && date != "0-0-0000" && total == -1)
+                else if (num != null && date != null && total == null)
                 {
                     //SearchNumDate int num string date
-                    string query = SearchSQL.SearchNumDate(num, date);
-                    int iRet = 0;
-                    ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
+                    DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchNumDate(num.Value, date), ref results);
+                    foreach (DataRow row in ds.Tables[0].Rows) { invoices.Add(new Invoice(int.Parse(row[0].ToString()), row[1].ToString(), int.Parse(row[2].ToString()))); }
                 }
                 // if num and total wer passed (not date)
-                else if (num != -1 && total != -1 && date == "0-0-0000")
+                else if (num != null && total != null && date == null)
                 {
                     //SearchNumCharges
-                    string query = SearchSQL.SearchNumCharges(num, total);
-                    int iRet = 0;
-                    ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
+                    DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchNumCharges(num.Value, total.Value), ref results);
+                    foreach (DataRow row in ds.Tables[0].Rows) { invoices.Add(new Invoice(int.Parse(row[0].ToString()), row[1].ToString(), int.Parse(row[2].ToString()))); }
                 }
                 //if num, date, and total wer passed
-                else if (num != -1 && total != -1 && date != "0-0-0000")
+                else if (num != null && total != null && date != null)
                 {
                     //SearchNumDateCharges(num, date, total)
-                    string query = SearchSQL.SearchNumDateCharges(num, date, total);
-                    int iRet = 0;
-                    ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
+                    DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchNumDateCharges(num.Value, date, total.Value), ref results);
+                    foreach (DataRow row in ds.Tables[0].Rows) { invoices.Add(new Invoice(int.Parse(row[0].ToString()), row[1].ToString(), int.Parse(row[2].ToString()))); }
                 }
                 //if date and total were passed (not num)
-                else if (num == -1 && date != "0-0-0000" && total != -1)
+                else if (num == null && date != null && total != null)
                 {
                     //SearchDateCharges
-                    string query = SearchSQL.SearchDateCharges(date, total);
-                    int iRet = 0;
-                    ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
+                    DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchDateCharges(date, total.Value), ref results);
+                    foreach (DataRow row in ds.Tables[0].Rows) { invoices.Add(new Invoice(int.Parse(row[0].ToString()), row[1].ToString(), int.Parse(row[2].ToString()))); }
                 }
                 //if date was passed (not num or total)
-                else if (date != "0-0-0000" && total == -1 && num == -1)
+                else if (date != null && total == null && num == null)
                 {
                     //SearchDate
-                    string query = SearchSQL.SearchDate(date);
-                    int iRet = 0;
-                    ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
+                    DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchDate(date), ref results);
+                    foreach (DataRow row in ds.Tables[0].Rows) { invoices.Add(new Invoice(int.Parse(row[0].ToString()), row[1].ToString(), int.Parse(row[2].ToString()))); }
                 }
                 //if total was passed (not num or date)
-                else if (total != -1 && date == "0-0-0000" && num == -1)
+                else if (total != null && date == null && num == null)
                 {
                     //SearchCharges
-                    string query = SearchSQL.SearchCharges(total);
-                    int iRet = 0;
-                    ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
+                    DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchCharges(total.Value), ref results);
+                    foreach (DataRow row in ds.Tables[0].Rows) { invoices.Add(new Invoice(int.Parse(row[0].ToString()), row[1].ToString(), int.Parse(row[2].ToString()))); }
                 }
 
-                return ds;
+                return invoices;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
 
         }
 
-        public DataSet ReturnAll()
+
+        public static List<Invoice> ReturnAllInvoices()
         {
             try
             {
-                // gets the query and will return it to the SearchWindow to be added to the Datagrid
-                DataSet ds = new DataSet();
-                string ret = SearchSQL.SearchAll();
-                int iRet = 0;
-                ds = DataAccess.ExecuteSQLStatement(ret, ref iRet);
-                return ds;
+                List<Invoice> invoices = new List<Invoice>();
+                int results = 0;
+                DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchAll(), ref results);
+                foreach(DataRow row in ds.Tables[0].Rows)
+                {
+                    invoices.Add(new Invoice(int.Parse(row[0].ToString()), row[1].ToString(), int.Parse(row[2].ToString())));
+                }
+                return invoices;
             }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public DataSet GetInvoiceNumList()
+        public static List<string> GetInvoiceNumList()
         {
-            DataSet ds;
             try
             {
-                string query = SearchSQL.SearchDistinctNum();
-                int iRet = 0;
-                ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
-                return ds;
+                List<string> invoiceNums = new List<string>();
+                int results = 0;
+                DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchDistinctNum(), ref results);
+                foreach(DataRow row in ds.Tables[0].Rows) { invoiceNums.Add(row[0].ToString()); }
+                return invoiceNums;
             }
-            catch (Exception ex)
-            { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public DataSet GetDates()
+        public static List<string> GetDates()
         {
-            DataSet ds;
             try
             {
-                string query = SearchSQL.SearchDistinctDate();
-                int iRet = 0;
-                ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
-                return ds;
+                List<string> invoiceNums = new List<string>();
+                int results = 0;
+                DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchDistinctDate(), ref results);
+                foreach (DataRow row in ds.Tables[0].Rows) { invoiceNums.Add(row[0].ToString()); }
+                return invoiceNums;
             }
-            catch (Exception ex)
-            { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
-
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
 
-        public DataSet GetTotals()
+        public static List<string> GetTotals()
         {
-            DataSet ds;
             try
             {
-                string query = SearchSQL.SearchDistinctCost();
-                int iRet = 0;
-                ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
-                return ds;
-
+                List<string> invoiceNums = new List<string>();
+                int results = 0;
+                DataSet ds = DataAccess.ExecuteSQLStatement(SearchSQL.SearchDistinctCost(), ref results);
+                foreach (DataRow row in ds.Tables[0].Rows) { invoiceNums.Add(row[0].ToString()); }
+                return invoiceNums;
             }
-            catch(Exception ex)
-            { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
-
-        
-
     }
-
 }

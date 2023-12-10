@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroupPrject.Items"
+        Closing="WindowClosing"
         mc:Ignorable="d"
-        Title="ItemsWindow" Height="450" Width="800"
-        Loaded="WindowLoaded">
+        Title="ItemsWindow" Height="450" Width="800">
     <Canvas Background="#4c6444">
         <DataGrid x:Name="dgItems" Height="246" Canvas.Left="51" Canvas.Top="31" Width="327" Background="#FFCABA9C" CanUserAddRows="False"/>
         <Button x:Name="btnAddItem" Content="Add Item" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnAddItem_Click" Canvas.Left="451" Canvas.Top="217" Width="75" Height="25"/>
@@ -19,6 +19,5 @@
         <TextBox x:Name="txtCode" TextWrapping="Wrap" Text="" Width="120" Margin="542,33,138,379"/>
         <TextBox x:Name="txtCost" TextWrapping="Wrap" Text="" Width="120" Margin="542,66,138,346"/>
         <TextBox x:Name="txtDesc" TextWrapping="Wrap" Text="" Width="120" Margin="542,97,138,315"/>
-        <Button x:Name="btnCloseWindow" Content="Close Window" Canvas.Left="496" Canvas.Top="312" Width="84" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Click="btnCloseWindow_Click"/>
     </Canvas>
 </Window>

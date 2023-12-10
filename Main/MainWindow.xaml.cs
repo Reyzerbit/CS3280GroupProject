@@ -26,6 +26,11 @@ namespace GroupPrject
     public partial class MainWindow : Window
     {
         /// <summary>
+        /// Helper function to allow dialog windows to close without needing to reinstantiate
+        /// </summary>
+        public static bool ClosedFromMain { get; private set; }  = false;
+
+        /// <summary>
         /// Search window instance
         /// </summary>
         SearchWindow searchWindow;
@@ -65,7 +70,7 @@ namespace GroupPrject
                 ItemsDropdown.ItemsSource = itemsWindow.Items;
                 SetInvoiceEditable(false);
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -84,10 +89,11 @@ namespace GroupPrject
                     int invoiceNumber = searchWindow.invoiceNumber.Value;
                     searchWindow.invoiceNumber = null;
                     invoice = MainLogic.GetInvoice(invoiceNumber);
+                    items = MainLogic.GetAllLineItemsFromInvoiceID(invoice);
                     UpdateInvoiceUI();
                 }
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -109,7 +115,7 @@ namespace GroupPrject
                     itemsWindow.ItemsHaveChanged = false;
                 }
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -123,7 +129,7 @@ namespace GroupPrject
             {
                 if(ItemsDropdown.SelectedItem != null) SelectedItemCostLabel.Content = ((Item)ItemsDropdown.SelectedItem).Cost.ToString();
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -140,7 +146,7 @@ namespace GroupPrject
                 SaveButton.IsEnabled = editable;
                 EditButton.IsEnabled = !editable && invoice != null;
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -161,6 +167,7 @@ namespace GroupPrject
                     int cost = 0;
                     foreach(Item item in items) cost += int.Parse(item.Cost);
                     InvoiceCostLabel.Content = cost.ToString();
+                    invoice.InvCharge = cost;
 
                     SetInvoiceEditable(isEditing);
                 }
@@ -172,7 +179,7 @@ namespace GroupPrject
                     SetInvoiceEditable(false);
                 }
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -189,7 +196,7 @@ namespace GroupPrject
                 items = new List<Item>();
                 UpdateInvoiceUI();
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -205,7 +212,7 @@ namespace GroupPrject
                 isEditing = true;
                 UpdateInvoiceUI();
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -222,7 +229,7 @@ namespace GroupPrject
                 items.Add(selected);
                 UpdateInvoiceUI();
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -240,7 +247,7 @@ namespace GroupPrject
                 items.Remove(selected);
                 UpdateInvoiceUI();
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
         }
 
         /// <summary>
@@ -258,6 +265,7 @@ namespace GroupPrject
                 {
                     MainLogic.AddLineItem(items[x], invoice, x + 1);
                 }
+                MainLogic.UpdateInvoiceCost(invoice);
 
                 ItemsDropdown.SelectedItem = null;
                 SelectedItemCostLabel.Content = null;
@@ -265,7 +273,31 @@ namespace GroupPrject
                 isEditing = false;
                 UpdateInvoiceUI();
             }
-            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            catch (Exception ex) { HandleError(ex); }
+        }
+
+        /// <summary>
+        /// Called on window closing. Sets a static variable so any other windows know this is a full close.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                ClosedFromMain = true;
+            }
+            catch (Exception ex) { HandleError(ex); }
+        }
+
+        private void HandleError(Exception ex)
+        {
+            try
+            {
+                MessageBox.Show("Error", ex.Message, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception e) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + e.Message); }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assignment_6;
+using GroupPrject.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,26 +26,12 @@ namespace GroupPrject.Search
     public partial class SearchWindow : Window
     {
         /// <summary>
-        /// A Lot of stuff used to remove the X icon from the window. This means that the close window button must be used.
-        /// </summary>
-        private const int GWL_STYLE = -16;
-        private const int WS_SYSMENU = 0x80000;
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-        [DllImport("user32.dll")]
-        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-
-        /// <summary>
         /// public invoice number for MainWindow access
         /// </summary>
         public int? invoiceNumber = null;
 
         //initialize logic object
         SearchLogic logic;
-
-        private int InvNum = -1;
-        private string Date = "";
-        private int Total = -1;
 
         /// <summary>
         /// Constructor
@@ -58,43 +45,21 @@ namespace GroupPrject.Search
                 InitializeComponent();
                 
                 logic = new SearchLogic();
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
 
-                //fill datagrid with default data.
-                DataSet ds = new DataSet();
-                ds = logic.ReturnAll();
-                dgResults.ItemsSource = ds.Tables[0].AsDataView();
-            
-                //Fill Invoices
-                DataSet InvoiceNums = logic.GetInvoiceNumList();
-                List<int> InvoiceNumbers = new List<int>();
-                for(int i =0; i < InvoiceNums.Tables[0].Rows.Count; i++)
-                {
-                    string conv = String.Join("",InvoiceNums.Tables[0].Rows[i].ItemArray);
-                    int num = Convert.ToInt32(conv);
-                    InvoiceNumbers.Add(num);
-                }
-                cboInvNum.ItemsSource = InvoiceNumbers;
-
-                //Fill Dates
-                DataSet Dates = logic.GetDates();
-                List<string> lDates = new List<string>();
-                for (int i = 0; i < Dates.Tables[0].Rows.Count; i++)
-                {
-                    lDates.Add(String.Join("", Dates.Tables[0].Rows[i].ItemArray) );
-                }
-                cboInvDate.ItemsSource = lDates;
-
-                //Fill charges
-                DataSet Totals = logic.GetTotals();
-                List<int> Tots = new List<int>();
-                for (int i = 0; i < Totals.Tables[0].Rows.Count; i++)
-                {
-                    string conv = String.Join("", Totals.Tables[0].Rows[i].ItemArray);
-                    Tots.Add(Convert.ToInt32(conv));
-                }
-                cboInvCharge.ItemsSource = Tots;
-
-
+        /// <summary>
+        /// Called when search window is opened to refresh data
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        private void RefreshData()
+        {
+            try
+            {
+                cboInvNum.ItemsSource = SearchLogic.GetInvoiceNumList();
+                cboInvDate.ItemsSource = SearchLogic.GetDates();
+                cboInvCharge.ItemsSource = SearchLogic.GetTotals();
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
@@ -106,24 +71,11 @@ namespace GroupPrject.Search
         /// <param name="e"></param>
         private void InvNumPass(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox cb = sender as ComboBox;
-            if (cb.SelectedItem != null)
-            {  DataSet ds = new DataSet();
-                try
-                {
-                    //get input to string
-                    string answer = cb.SelectedItem.ToString();
-
-                    //get the input in the correct format
-                    int num = Convert.ToInt32(answer);
-
-                    InvNum = num;
-
-                    //Call general method
-                    FillDataGrid();
-                }
-                catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+            try
+            {
+                FillDataGrid();
             }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
 
         }
         /// <summary>
@@ -133,14 +85,11 @@ namespace GroupPrject.Search
         /// <param name="e"></param>
         private void InvDatePass(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox cb = (ComboBox)sender;
-            if(cb.SelectedItem != null)
+            try
             {
-                Date = cb.SelectedItem.ToString();
+                FillDataGrid();
             }
-
-            //Call general method
-            FillDataGrid();
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
         /// <summary>
@@ -150,81 +99,70 @@ namespace GroupPrject.Search
         /// <param name="e"></param>
         private void InvChargePass(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox cb = (ComboBox)sender;
-            if (cb.SelectedItem != null)
-            {
-                try
-                {
-                    string answer = cb.SelectedItem.ToString();
-                    int num = Convert.ToInt32(answer);
-
-                    Total = num;
-
-                    //call general method
-                    FillDataGrid();
-                }
-                catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
-            }
-        }
-
-
-
-        private void FillDataGrid()
-        {
-            DataSet ds = new DataSet();
             try
             {
-                if (InvNum > -1)
+                FillDataGrid();
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Helper function to populate data grid
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        private void FillDataGrid()
+        {
+            try
+            {
+                int selectedInvoiceNumber = cboInvNum.SelectedItem != null ? Convert.ToInt32(cboInvNum.SelectedItem.ToString()) : -1;
+                string selectedInvoiceDate = cboInvDate.SelectedItem != null ? cboInvDate.SelectedItem.ToString() : "";
+                int selectedInvoiceCharge = cboInvCharge.SelectedItem != null ? Convert.ToInt32(cboInvCharge.SelectedItem.ToString()) : -1;
+
+                if (selectedInvoiceNumber > -1)
                 {
-                    if (Date != "")
+                    if (selectedInvoiceDate != "")
                     {
-                        if (Total > -1)
+                        if (selectedInvoiceCharge > -1)
                         {
-                            ds = logic.ReturnQuery(InvNum, Date, Total);
+                            dgResults.ItemsSource = SearchLogic.ReturnQuery(selectedInvoiceNumber, selectedInvoiceDate, selectedInvoiceCharge);
                         
                         }
                         else
                         {
-                            ds = logic.ReturnQuery(InvNum, Date);
+                            dgResults.ItemsSource = SearchLogic.ReturnQuery(selectedInvoiceNumber, selectedInvoiceDate);
                         }
 
                     }
-                    else if (Total>-1)
+                    else if (selectedInvoiceCharge>-1)
                     {
-                        ds = logic.ReturnQuery(InvNum, "0-0-0000", Total);
+                        dgResults.ItemsSource = SearchLogic.ReturnQuery(selectedInvoiceNumber, null, selectedInvoiceCharge);
                     }
                     else
                     {
-                        ds = logic.ReturnQuery(InvNum);
+                        dgResults.ItemsSource = SearchLogic.ReturnQuery(selectedInvoiceNumber);
                     }
                 }
-                else if (Date != "" && InvNum==-1)
+                else if (selectedInvoiceDate != "" && selectedInvoiceNumber == -1)
                 {
-                    if(Total > -1) 
+                    if(selectedInvoiceCharge > -1) 
                     {
-                        ds = logic.ReturnQuery(-1, Date, Total);
+                        dgResults.ItemsSource = SearchLogic.ReturnQuery(null, selectedInvoiceDate, selectedInvoiceCharge);
                     }
                     else
                     {
-                        ds = logic.ReturnQuery(-1, Date);
+                        dgResults.ItemsSource = SearchLogic.ReturnQuery(null, selectedInvoiceDate);
                     }
                 }
-                else if(InvNum==-1 && Date == "" && Total > -1)
+                else if(selectedInvoiceNumber==-1 && selectedInvoiceDate == "" && selectedInvoiceCharge > -1)
                 {
-                    ds = logic.ReturnQuery(-1, "0-0-0000", Total);
+                    dgResults.ItemsSource = SearchLogic.ReturnQuery(null, null, selectedInvoiceCharge);
                 }
                 else
                 {
-                    ds = logic.ReturnAll();
-                    dgResults.ItemsSource = ds.Tables[0].AsDataView();
+                    dgResults.ItemsSource = SearchLogic.ReturnAllInvoices();
                 }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
-            if(ds != null)
-            {
-                //dgResults.Items.Clear();
-                dgResults.ItemsSource = ds.Tables[0].AsDataView();
-            }
         }
 
         /// <summary>
@@ -237,11 +175,12 @@ namespace GroupPrject.Search
         /// <param name="e"></param>
         private void SelectInvoice(object sender, RoutedEventArgs e)
         {
-            // invoiceNumber = SearchLogic.GetInvoiceNumber();
-            if(invoiceNumber != null)
+            try
             {
+                invoiceNumber = ((Invoice) dgResults.SelectedItem).InvNum;
                 this.Hide();
             }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
 
         }
 
@@ -253,38 +192,46 @@ namespace GroupPrject.Search
         private void ClearSearch(object sender, RoutedEventArgs e)
         {
             //Used to have this.close() then this.Hide(), but this button doesn't close the form
-            InvNum = -1;
-            Date = "";
-            Total = -1;
-            FillDataGrid();
-
+            cboInvNum.SelectedItem = null;
+            cboInvDate.SelectedItem = null;
+            cboInvCharge.SelectedItem = null;
         }
 
         /// <summary>
-        /// Used to remove the X Button from the pane.
+        /// Called when window is visible to update data grid
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void WindowLoaded(object sender, RoutedEventArgs e)
+        /// <exception cref="Exception"></exception>
+        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             try
             {
-                IntPtr hwnd = new WindowInteropHelper(this).Handle;
-                SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
+                if (this.Visibility == Visibility.Visible)
+                {
+                    ClearSearch(null, null);
+                    RefreshData();
+                    FillDataGrid();
+                }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        private void InvoiceSelected(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// Called when window is closing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="Exception"></exception>
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
-            //string invoice = (string)dgResults.SelectedItem;
-            DataRowView dr = (DataRowView)dgResults.SelectedItem;
-            string num = dr.Row[0].ToString();
             try
             {
-                int invoice = Convert.ToInt32(num);
-                invoiceNumber = invoice;
+                if(!MainWindow.ClosedFromMain)
+                {
+                    this.Hide();
+                    e.Cancel = true;
+                }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }

@@ -149,7 +149,7 @@ namespace GroupPrject.Items {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GroupPrject;V1.0.0.0;component/items/itemswindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GroupPrject;component/items/itemswindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Items\ItemsWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

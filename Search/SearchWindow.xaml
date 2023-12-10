@@ -9,7 +9,7 @@
         Loaded="WindowLoaded">
     <Grid>
         <ComboBox x:Name="cboInvNum" HorizontalAlignment="Left" Margin="162,51,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="InvNumPass"/>
-        <ComboBox x:Name="cboInvDate" HorizontalAlignment="Left" Margin="412,51,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="InvDatePass"/>
+        <ComboBox x:Name="cboInvDate" HorizontalAlignment="Left" Margin="420,51,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="InvDatePass"/>
         <ComboBox x:Name="cboInvCharge" HorizontalAlignment="Left" Margin="653,51,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="InvChargePass"/>
         <DataGrid x:Name="dgResults" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="47,111,43,98"/>
         <Button x:Name="btnSelectInvoice" Content="Select Invoice" HorizontalAlignment="Left" Margin="223,369,0,0" VerticalAlignment="Top" Click="SelectInvoice" Height="39" Width="91"/>

@@ -65,3 +65,36 @@ C:\Users\doosm\OneDrive\School\Computer Science\3280\source\repos\CS3280 Group P
 C:\Users\doosm\OneDrive\School\Computer Science\3280\source\repos\CS3280 Group Project\obj\Debug\net6.0-windows\GroupPrject.pdb
 C:\Users\doosm\OneDrive\School\Computer Science\3280\source\repos\CS3280 Group Project\obj\Debug\net6.0-windows\GroupPrject.genruntimeconfig.cache
 C:\Users\doosm\OneDrive\School\Computer Science\3280\source\repos\CS3280 Group Project\obj\Debug\net6.0-windows\ref\GroupPrject.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\GroupPrject.exe
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\GroupPrject.deps.json
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\GroupPrject.runtimeconfig.json
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\GroupPrject.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\GroupPrject.pdb
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\System.Data.OleDb.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\System.Diagnostics.PerformanceCounter.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\System.Security.Cryptography.ProtectedData.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Data.OleDb.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Diagnostics.PerformanceCounter.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.csproj.AssemblyReference.cache
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\Items\ItemsWindow.g.cs
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\Main\MainWindow.g.cs
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\Search\SearchWindow.g.cs
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\App.g.cs
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject_MarkupCompile.cache
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject_MarkupCompile.lref
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\App.baml
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\Items\ItemsWindow.baml
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\Main\MainWindow.baml
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\Search\SearchWindow.baml
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.g.resources
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.AssemblyInfoInputs.cache
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.AssemblyInfo.cs
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.csproj.CoreCompileInputs.cache
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.csproj.CopyComplete
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\refint\GroupPrject.dll
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.pdb
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\GroupPrject.genruntimeconfig.cache
+C:\Users\shayk\OneDrive\Desktop\CS 3280\GroupAssignmentCopy\CS3280GroupProject\obj\Debug\net6.0-windows\ref\GroupPrject.dll

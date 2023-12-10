@@ -91,11 +91,22 @@ namespace GroupPrject.Search
         }
 
         /// <summary>
+        /// Returns SQL statements to search invoices by number and cost
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public static string SearchNumCharges(int num, int charges)
+        {
+            try { return "SELECT * FROM Invoices WHERE InvoiceNum = " + num + "AND TotalCost = " + charges; }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
+
+        /// <summary>
         /// Returns SQL statements to return all of the invoice numbers from all existing invoices
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static string SearchDistinctNum(int num)
+        public static string SearchDistinctNum()
         {
             try{ return "SELECT DISTINCT(InvoiceNum) From Invoices order by InvoiceNum"; }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
@@ -106,7 +117,7 @@ namespace GroupPrject.Search
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static string SearchDistinctDate(string date)
+        public static string SearchDistinctDate()
         {
             try{ return "SELECT DISTINCT(InvoiceDate) From Invoices order by InvoiceDate"; }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
@@ -117,10 +128,11 @@ namespace GroupPrject.Search
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static string SearchDistinctCost(int charges)
+        public static string SearchDistinctCost()
         {
             try{ return "SELECT DISTINCT(TotalCost) From Invoices order by TotalCost"; }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
+
     }
 }

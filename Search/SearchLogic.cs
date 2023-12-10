@@ -172,10 +172,7 @@ namespace GroupPrject.Search
             { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
+        
 
     }
 

@@ -56,6 +56,7 @@ namespace GroupPrject.Search
             try
             {
                 InitializeComponent();
+                
                 logic = new SearchLogic();
 
                 //fill datagrid with default data.
@@ -212,6 +213,11 @@ namespace GroupPrject.Search
                 {
                     ds = logic.ReturnQuery(-1, "0-0-0000", Total);
                 }
+                else
+                {
+                    ds = logic.ReturnAll();
+                    dgResults.ItemsSource = ds.Tables[0].AsDataView();
+                }
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
             if(ds != null)
@@ -232,7 +238,11 @@ namespace GroupPrject.Search
         private void SelectInvoice(object sender, RoutedEventArgs e)
         {
             // invoiceNumber = SearchLogic.GetInvoiceNumber();
-            this.Hide();
+            if(invoiceNumber != null)
+            {
+                this.Hide();
+            }
+
         }
 
         /// <summary>
@@ -243,7 +253,10 @@ namespace GroupPrject.Search
         private void ClearSearch(object sender, RoutedEventArgs e)
         {
             //Used to have this.close() then this.Hide(), but this button doesn't close the form
-
+            InvNum = -1;
+            Date = "";
+            Total = -1;
+            FillDataGrid();
 
         }
 
@@ -262,5 +275,18 @@ namespace GroupPrject.Search
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
         }
 
+        private void InvoiceSelected(object sender, SelectionChangedEventArgs e)
+        {
+
+            //string invoice = (string)dgResults.SelectedItem;
+            DataRowView dr = (DataRowView)dgResults.SelectedItem;
+            string num = dr.Row[0].ToString();
+            try
+            {
+                int invoice = Convert.ToInt32(num);
+                invoiceNumber = invoice;
+            }
+            catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
+        }
     }
 }

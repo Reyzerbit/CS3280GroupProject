@@ -36,7 +36,7 @@ namespace GroupPrject.Search
             charge = price;
         }
 
-        public DataSet ReturnQuery(int num = -1, string date = "0-0-0000", int total = 0)
+        public DataSet ReturnQuery(int num = -1, string date = "0-0-0000", int total = -1)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace GroupPrject.Search
                 DataSet ds = new DataSet();
 
                 //if num was passed (not date or total)
-                if (num != -1 && date == "0-0-0000" && total == 0)
+                if (num != -1 && date == "0-0-0000" && total == -1)
                 {
                     //SearchNum(int num)
                     string query = SearchSQL.SearchNum(num);
@@ -53,7 +53,7 @@ namespace GroupPrject.Search
                 }
 
                 //if num and date were passed (not total)
-                else if (num != -1 && date != "0-0-0000" && total == 0)
+                else if (num != -1 && date != "0-0-0000" && total == -1)
                 {
                     //SearchNumDate int num string date
                     string query = SearchSQL.SearchNumDate(num, date);
@@ -61,7 +61,7 @@ namespace GroupPrject.Search
                     ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
                 }
                 // if num and total wer passed (not date)
-                else if (num != -1 && total != 0 && date == "0-0-0000")
+                else if (num != -1 && total != -1 && date == "0-0-0000")
                 {
                     //SearchNumCharges
                     string query = SearchSQL.SearchNumCharges(num, total);
@@ -69,7 +69,7 @@ namespace GroupPrject.Search
                     ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
                 }
                 //if num, date, and total wer passed
-                else if (num != -1 && total != 0 && date != "0-0-0000")
+                else if (num != -1 && total != -1 && date != "0-0-0000")
                 {
                     //SearchNumDateCharges(num, date, total)
                     string query = SearchSQL.SearchNumDateCharges(num, date, total);
@@ -77,7 +77,7 @@ namespace GroupPrject.Search
                     ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
                 }
                 //if date and total were passed (not num)
-                else if (num == -1 && date != "0-0-0000" && total != 0)
+                else if (num == -1 && date != "0-0-0000" && total != -1)
                 {
                     //SearchDateCharges
                     string query = SearchSQL.SearchDateCharges(date, total);
@@ -85,7 +85,7 @@ namespace GroupPrject.Search
                     ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
                 }
                 //if date was passed (not num or total)
-                else if (date != "0-0-0000" && total == 0 && num == -1)
+                else if (date != "0-0-0000" && total == -1 && num == -1)
                 {
                     //SearchDate
                     string query = SearchSQL.SearchDate(date);
@@ -93,7 +93,7 @@ namespace GroupPrject.Search
                     ds = DataAccess.ExecuteSQLStatement(query, ref iRet);
                 }
                 //if total was passed (not num or date)
-                else if (total != 0 && date == "0-0-0000" && num == -1)
+                else if (total != -1 && date == "0-0-0000" && num == -1)
                 {
                     //SearchCharges
                     string query = SearchSQL.SearchCharges(total);

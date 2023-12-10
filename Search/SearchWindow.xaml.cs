@@ -44,7 +44,7 @@ namespace GroupPrject.Search
 
         private int InvNum = -1;
         private string Date = "";
-        private int Total = 0;
+        private int Total = -1;
 
         /// <summary>
         /// Constructor
@@ -62,13 +62,13 @@ namespace GroupPrject.Search
                 DataSet ds = new DataSet();
                 ds = logic.ReturnAll();
                 dgResults.ItemsSource = ds.Tables[0].AsDataView();
-            /*
+            
                 //Fill Invoices
                 DataSet InvoiceNums = logic.GetInvoiceNumList();
                 List<int> InvoiceNumbers = new List<int>();
                 for(int i =0; i < InvoiceNums.Tables[0].Rows.Count; i++)
                 {
-                    string conv = InvoiceNums.Tables[0].Rows[i].ToString();
+                    string conv = String.Join("",InvoiceNums.Tables[0].Rows[i].ItemArray);
                     int num = Convert.ToInt32(conv);
                     InvoiceNumbers.Add(num);
                 }
@@ -79,7 +79,7 @@ namespace GroupPrject.Search
                 List<string> lDates = new List<string>();
                 for (int i = 0; i < Dates.Tables[0].Rows.Count; i++)
                 {
-                    lDates.Add(Dates.Tables[0].Rows[i].ToString() );
+                    lDates.Add(String.Join("", Dates.Tables[0].Rows[i].ItemArray) );
                 }
                 cboInvDate.ItemsSource = lDates;
 
@@ -88,10 +88,11 @@ namespace GroupPrject.Search
                 List<int> Tots = new List<int>();
                 for (int i = 0; i < Totals.Tables[0].Rows.Count; i++)
                 {
-                    Tots.Add(Convert.ToInt32(Totals.Tables[0].Rows[i].ToString()));
+                    string conv = String.Join("", Totals.Tables[0].Rows[i].ItemArray);
+                    Tots.Add(Convert.ToInt32(conv));
                 }
                 cboInvCharge.ItemsSource = Tots;
-            */
+
 
             }
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
@@ -176,7 +177,7 @@ namespace GroupPrject.Search
                 {
                     if (Date != "")
                     {
-                        if (Total > 0)
+                        if (Total > -1)
                         {
                             ds = logic.ReturnQuery(InvNum, Date, Total);
                         
@@ -187,7 +188,7 @@ namespace GroupPrject.Search
                         }
 
                     }
-                    else if (Total>0)
+                    else if (Total>-1)
                     {
                         ds = logic.ReturnQuery(InvNum, "0-0-0000", Total);
                     }
@@ -198,7 +199,7 @@ namespace GroupPrject.Search
                 }
                 else if (Date != "" && InvNum==-1)
                 {
-                    if(Total > 0) 
+                    if(Total > -1) 
                     {
                         ds = logic.ReturnQuery(-1, Date, Total);
                     }
@@ -207,7 +208,7 @@ namespace GroupPrject.Search
                         ds = logic.ReturnQuery(-1, Date);
                     }
                 }
-                else if(InvNum==-1 && Date == "" && Total > 0)
+                else if(InvNum==-1 && Date == "" && Total > -1)
                 {
                     ds = logic.ReturnQuery(-1, "0-0-0000", Total);
                 }
@@ -215,7 +216,7 @@ namespace GroupPrject.Search
             catch (Exception ex) { throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message); }
             if(ds != null)
             {
-                dgResults.Items.Clear();
+                //dgResults.Items.Clear();
                 dgResults.ItemsSource = ds.Tables[0].AsDataView();
             }
         }
